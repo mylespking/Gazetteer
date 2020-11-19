@@ -1,0 +1,104 @@
+/* Set parent element of the map div to the full height of the viewport so the map in the div can be fullscreen (100% of the screen)*/
+html, body {
+    margin:0px;
+    height: calc(100% - 35px);
+  }
+
+/* Set the height to 100% of device */
+#mapid { 
+    height: 100%; 
+}
+
+/* Set div including map to full height minus somesize to get rid of scroll bar using calc function */
+#content {
+  height: 100%;
+}
+
+/* Set custom font for app name */
+#gaz {
+  font-family: 'Big Shoulders Stencil Display', cursive, sans-serif;
+  font-size: 28px;
+  color: black;
+}
+
+/* Set custom background for nav bar */
+#nav {
+  background: rgb(68,151,178);
+  background: linear-gradient(38deg, rgba(68,151,178,1) 0%, rgba(150,178,68,1) 48%, rgba(178,68,150,1) 96%);
+}
+
+#space {
+  padding: 10px;
+}
+
+.left {
+ text-align: left;
+ padding-left: 5px;
+}
+
+.right {
+  text-align: right;
+  padding-right: 5px;
+}
+
+#flag {
+  width: 95px;
+  height: 50px;
+  box-shadow: 2px 2px 5px;
+}
+
+#colsel{
+  width: 40%;
+}
+
+#weathIcon {
+  width: 30px;
+  height: 30px;
+}
+
+#mainWeathIcon {
+  width: 40px;
+  height: 40px;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  width: fit-content;
+}
+
+.leaflet-popup-tip-container {
+  display: none;
+}
+
+.leaflet-popup {
+  margin: 0;
+}
+
+.nesw .leaflet-popup-tip-container {
+  display: block;
+  margin: auto;
+  left: auto;
+}
+
+.forecast div.leaflet-popup-content {
+  align-content: left;
+  width: auto;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+  text-align: center;
+  width: auto;
+}
+
+div.modal-dialog.modal-dialog-centered {
+  justify-content: center;
+}
+
+div.modal-content {
+  align-items: center;
+  width: fit-content;
+  text-align: center;
+}

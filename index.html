@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta description -->
+    <meta name="description" content="">
+    <meta name="author" content="Myles King">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="globe.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="./packages/bootstrap/css/bootstrap.min.css">
+
+    <!-- Latest compiled and minified bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="./packages/bootstrap/bootstrap-select.min.css">
+
+    <!-- Leaflet Css -->
+    <link rel="stylesheet" href="./packages/leaflet/leaflet.css" type="text/css"/>
+
+    <!-- Leaflet EasyButton-->
+    <link href="./packages/easybutton/font-awesome.css" type="text/css" rel="stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="./packages/easybutton/leafletcss.css" /> 
+    <link rel="stylesheet" type="text/css" href="./packages/easybutton/easybuttoncss.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@500&display=swap" rel="stylesheet">
+
+    <!-- Spin css link -->
+    <link rel="stylesheet" type="text/css" href="./packages/spin/spin.css">
+
+    <!-- Css link -->
+    <link rel="stylesheet" type="text/css" href="./css/css.css">
+
+    <title>gazetteer</title>
+
+  </head>
+ 
+  <body>
+    
+    <!-- Nav bar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="nav">
+      <a class="navbar-brand abs" href="." id="gaz">gazetteer</a>
+      <ul class="navbar-nav ml-auto" id="colsel">
+        <li class="nav-item ml-auto">
+          <select class="custom-select" name="country" id="country" onchange="getData(value)" data-target="#myModal" data-toggle="modal">
+            <option value="ZZ" selected="selected" >Select Country</option>
+          </select>
+        </li>
+      </ul>
+    </nav>
+    
+      <!-- Customer Spinner for loading of data -->
+      <div id="custom-loader" class="custom-spinner hidden"><div class="custom-spinner-inside">
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div></div>
+        
+    <!-- Div containing map element -->
+    <div id="mapid">
+
+      <!-- Exchange Bootstrap modal -->
+      <div>
+        <div class="modal fade exchange" id="exchange-modal" role="dialog">
+          <div class="modal-dialog modal-dialog-centered exchange">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Currency Data</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+              </div>
+              <div class="modal-body" id="modalContent">
+                <table>
+                  <tr>
+                      <td class='right'> Currency: </td>
+                      <td id="exchange1" class='left'></td> 
+                  </tr> 
+                  <tr> 
+                      <td class='right'> Conversion: </td>
+                      <td id="exchange2" class='left'></td>
+                  </tr>
+                  <tr> 
+                      <td class='right'> Currency Code: </td>
+                      <td id="exchange3" class='left'></td> 
+                  </tr>
+                  <tr>
+                      <td class='right'> Symbol: </td>
+                      <td id="exchange4" class='left'></td> 
+                  </tr>  
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Corona Bootstrap modal -->
+      <div>
+        <div class="modal fade corona" id="corona-modal" role="dialog">
+          <div class="modal-dialog modal-dialog-centered corona">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Coronavirus Data</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+              </div>
+              <div class="modal-body" id="modalContent">
+                <table>
+                  <tr>
+                      <td class='right'>Confirmed cases: </td>
+                      <td id="corona1" class='left'></td> 
+                  </tr> 
+                  <tr> 
+                      <td class='right'> Critical cases: </td>
+                      <td id="corona2" class='left'></td>
+                  </tr>
+                  <tr> 
+                      <td class='right'> Deaths: </td>
+                      <td id="corona3" class='left'></td> 
+                  </tr> 
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weather Bootstrap modal -->
+      <div>
+        <div class="modal fade weather" id="weather-modal" role="dialog">
+          <div class="modal-dialog modal-dialog-centered corona">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Weather Data</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+              </div>
+                <div class="modal-body" id="modalContent">
+                  <table>
+                    <tr>
+                        <td colspan="2" id="weather1"></td> 
+                    </tr> 
+                    <tr>
+                      <td colspan="2" id="weather2"></td> 
+                    </tr> 
+                    <tr>
+                      <td colspan="2" id="weather3"></td> 
+                    </tr> 
+                    <tr> 
+                      <td class='right'> Cloud cover: </td>
+                      <td id="weather4" class='left'></td>
+                    </tr>
+                    <tr> 
+                        <td class='right'> Temperature: </td>
+                        <td id="weather5" class='left'></td> 
+                    </tr> 
+                    <tr> 
+                      <td class='right'> Feels like: </td>
+                      <td id="weather6" class='left'></td>
+                    </tr>
+                    <tr> 
+                      <td class='right'> Max: </td>
+                      <td id="weather7" class='left'></td> 
+                    </tr> 
+                    <tr> 
+                      <td class='right'> Min: </td>
+                      <td id="weather8" class='left'></td>
+                    </tr>
+                    <tr> 
+                      <td class='right'> Pressure: </td>
+                      <td id="weather9" class='left'></td> 
+                    </tr> 
+                    <tr> 
+                      <td class='right'> Humidity: </td>
+                      <td id="weather10" class='left'></td>
+                    </tr>
+                    <tr> 
+                      <td class='right'> Wind speed: </td>
+                      <td id="weather11" class='left'></td> 
+                    </tr> 
+                    <tr> 
+                      <td class='right'> Wind direction: </td>
+                      <td id="weather12" class='left'></td>
+                    </tr>
+                    <tr> 
+                        <td class='right'> Sunrise: </td>
+                        <td id="weather13" class='left'></td> 
+                    </tr> 
+                    <tr> 
+                      <td class='right'> Sunset: </td>
+                      <td id="weather14" class='left'></td>
+                    </tr>
+                  </table>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forecast Bootstrap modal -->
+      <div>
+        <div class="modal fade forecast" id="forecast-modal" role="dialog">
+          <div class="modal-dialog modal-dialog-centered corona">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Forecast Data</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+              </div>
+              <div class="modal-body" id="modalContent">
+                <table>
+                  <tr> 
+                    <td id="forecast1"> </td> 
+                    <td id="forecast2"> </td> 
+                    <td id="forecast3" class='right'> </td>
+                    <td id="forecast4" class='left'> </td>
+                  </tr> 
+                  <tr> 
+                    <td id="forecast5"> </td> 
+                    <td id="forecast6"> </td> 
+                    <td id="forecast7" class='right'> </td>
+                    <td id="forecast8" class='left'> </td>
+                  </tr> 
+                  <tr> 
+                    <td id="forecast9"> </td> 
+                    <td id="forecast10"> </td> 
+                    <td id="forecast11" class='right'> </td>
+                    <td id="forecast12" class='left'> </td>
+                  </tr> 
+                  <tr> 
+                    <td id="forecast13"> </td> 
+                    <td id="forecast14"> </td> 
+                    <td id="forecast15" class='right'> </td>
+                    <td id="forecast16" class='left'> </td>
+                  </tr> 
+                  <tr> 
+                    <td id="forecast17"> </td> 
+                    <td id="forecast18"> </td> 
+                    <td id="forecast19" class='right'> </td>
+                    <td id="forecast20" class='left'> </td>
+                  </tr>  
+                  <tr> 
+                    <td id="forecast21"> </td> 
+                    <td id="forecast22"> </td> 
+                    <td id="forecast23" class='right'> </td>
+                    <td id="forecast24" class='left'> </td>
+                  </tr> 
+                  <tr> 
+                    <td id="forecast25"> </td> 
+                    <td id="forecast26"> </td> 
+                    <td id="forecast27" class='right'> </td>
+                    <td id="forecast28" class='left'> </td>
+                  </tr>  
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+     
+    <!-- Bootsrap required javascript - jQuery first, then Popper.js, then Bootstrap JS as stated in Bootstrap documentation-->
+    <script type="text/javascript" src="./packages/bootstrap/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./packages/bootstrap/popper.min.js" ></script>
+    <script type="text/javascript" src="./packages/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified bootstrap JavaScript -->
+    <script type="text/javascript" src="./packages/bootstrap/bootstrap-select.min.js"></script>
+
+    <!-- Leaflet JS -->
+    <script type="text/javascript" src="./packages/leaflet/leaflet.js"></script>
+
+    <!-- Leaflet.easyButton -->
+    <script type="text/javascript" src="./packages/easybutton/leafletjs.js"></script>
+    <script type="text/javascript" src="./packages/easybutton/easybutton.js"></script>
+
+    <!-- Spinner JS -->
+    <script type="text/javascript" src="./packages/spin/spin.umd.js"></script>
+
+    <!-- JavaScript -->
+    <script type="text/javascript" src="./js/newjs.js"></script>
+  
+  </body>
+
+</html>
+
+
+
