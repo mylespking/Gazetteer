@@ -339,7 +339,7 @@ function getData(code) {
                     "</table>"
                 );
             
-                //.setLatLng([neswarray[j]['lat'],neswarray[j]['lng']]).addTo(neswData);
+                // create a temporary holding variable to be used to create geojson
                 var cityHold = {
                     "type": "Feature",
                     "properties": {
